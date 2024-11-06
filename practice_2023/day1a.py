@@ -16,12 +16,12 @@ def calibrate(line):
 
 def solve(inputfile):
     """Read the file and return a solution"""
-    lines = [line.rstrip() for line in open(inputfile)]
+    lines = [line.rstrip() for line in inputfile]
     calibrations = [calibrate(line) for line in lines]
     sum = functools.reduce(lambda a, b: a+b, calibrations)
     return sum
 
 if __name__ == '__main__':
     args = parser.parse_args()
-    answer = solve(args.inputfile)
+    answer = solve(open(args.inputfile))
     print(f'Answer: {answer}')
