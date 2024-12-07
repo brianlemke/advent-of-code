@@ -3,7 +3,6 @@
 # https://adventofcode.com/2024/day/x
 
 import argparse
-import functools
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--inputfile', default='./inputs/2024_dayx.txt')
