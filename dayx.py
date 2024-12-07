@@ -8,11 +8,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--inputfile', default='./inputs/2024_dayx.txt')
 
 def solve_a(inputfile):
-    """Read the file and return a solution"""
+    """Read the file and return a solution for Part One"""
     return None
 
 def solve_b(inputfile):
-    """Read the file and return a solution"""
+    """Read the file and return a solution for Part Two"""
     return None
 
 if __name__ == '__main__':
