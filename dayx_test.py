@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import unittest
-import dayx as solution
+import dayREPLACEME as solution
 
 class TestSolution(unittest.TestCase):
     sample_input = """

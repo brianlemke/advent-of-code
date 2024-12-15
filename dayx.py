@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-# https://adventofcode.com/2024/day/x
+# https://adventofcode.com/2024/day/REPLACEME
 
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-i', '--inputfile', default='./inputs/2024_dayx.txt')
+parser.add_argument('-i', '--inputfile', default='./inputs/2024_dayREPLACEME.txt')
 
 def solve_a(inputfile):
     """Read the file and return a solution for Part One"""
