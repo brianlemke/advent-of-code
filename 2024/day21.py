@@ -4,6 +4,7 @@
 
 import argparse
 import re
+import functools
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--inputfile', default='./inputs/2024_day21.txt')
@@ -97,6 +98,54 @@ class DirectionalKeypad(Keypad):
         ]
         Keypad.__init__(self, grid, name, controller)
 
+@functools.cache
+def solve_move(move, start, robot_keypads):
+    if robot_keypads == 0:
+        return 1
+    
+    keypad = DirectionalKeypad("current")
+    keypad.pos = keypad.coords(start)
+    sequences = keypad.find_navigation_sequences(move)
+    best_moves = None
+    for sequence in sequences:
+        num_moves = 0
+        next_keypad = DirectionalKeypad("next")
+        for m in sequence:
+            num_moves += solve_move(m, next_keypad.current(), robot_keypads-1)
+            next_keypad.pos = next_keypad.coords(m)
+        num_moves += solve_move('A', next_keypad.current(), robot_keypads-1)
+        if best_moves is None or num_moves < best_moves:
+            best_moves = num_moves
+
+    return best_moves
+
+def solve_code_2(code, robot_keypads=2):
+    """Return the sequence of button presses to solve the code"""
+    # Only the first directional keypad matters because it is the
+    # only one that won't end on 'A' after each move
+    numeric = NumericKeypad("numeric")
+
+    num_presses = 0
+    for val in code:
+        sequences = numeric.find_navigation_sequences(val)
+        best_presses = None
+        for sequence in sequences:
+            numeric.store_state()
+            presses = 0
+            next_keypad = DirectionalKeypad("next")
+            for m in sequence:
+                presses += solve_move(m, next_keypad.current(), robot_keypads)
+                next_keypad.pos = next_keypad.coords(m)
+            presses += solve_move('A', next_keypad.current(), robot_keypads)
+            numeric.restore_state()
+
+            if best_presses is None or presses < best_presses:
+                best_presses = presses
+        numeric.pos = numeric.coords(val)
+        num_presses += best_presses
+
+    return num_presses
+
 def solve_code(code):
     """Return the sequence of button presses to solve the code"""
     third = DirectionalKeypad("third")
@@ -154,7 +203,15 @@ def solve_a(inputfile):
 
 def solve_b(inputfile):
     """Read the file and return a solution for Part Two"""
-    return None
+    codes = [line.strip() for line in inputfile]
+
+    sum = 0
+    for code in codes:
+        presses = solve_code_2(code, 25)
+        numeric_part = int(re.search(r'\d+', code).group())
+        complexity = numeric_part * presses
+        sum += complexity
+    return sum
 
 if __name__ == '__main__':
     args = parser.parse_args()
