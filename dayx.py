@@ -5,7 +5,7 @@
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-i', '--inputfile', default='./inputs/2024_dayREPLACEME.txt')
+parser.add_argument('-i', '--inputfile', default='./inputs/2025_dayREPLACEME.txt')
 
 def solve_a(inputfile):
     """Read the file and return a solution for Part One"""

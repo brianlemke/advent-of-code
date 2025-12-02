@@ -5,7 +5,7 @@ import os
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--day', required=True)
-parser.add_argument('-y', '--year', default='2024')
+parser.add_argument('-y', '--year', default='2025')
 
 DAY_MARKER = 'REPLACEME'
 
