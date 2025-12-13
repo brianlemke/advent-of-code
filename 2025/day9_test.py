@@ -23,7 +23,7 @@ class TestSolution(unittest.TestCase):
 
     def test_sample_b(self):
         """Make sure the sample solution works for part B"""
-        sample_solution = None
+        sample_solution = 24
 
         self.assertEqual(sample_solution, solution.solve_b(self.sample_input))
 
